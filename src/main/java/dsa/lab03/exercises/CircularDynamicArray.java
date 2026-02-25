@@ -143,9 +143,14 @@ public class CircularDynamicArray<Item>
   {
     // NOTE: You don't _have_ to implement this method, but you'll likely find
     //       it very useful for implementing the other methods in this class.
+    if(this.capacity() == 0){
+      return -1;
+    }
+    if(this.size == 1){
+      return 0;
+    }
 
-    // TODO: Implement CircularDynamicArray.index(int index)
-    return 0;
+    return (this.capacity() + this.start + index) % this.capacity();
   }
 
 
@@ -158,8 +163,8 @@ public class CircularDynamicArray<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement CircularDynamicArray.get(int index)
-    return null;
+    Item itemToReturn = this.items[this.index(index)];
+    return itemToReturn;
   }
 
 
@@ -172,7 +177,8 @@ public class CircularDynamicArray<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement CircularDynamicArray.set(int index, Item item)
+    this.items[this.index(index)] = item;
+
   }
 
 
@@ -215,7 +221,21 @@ public class CircularDynamicArray<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement CircularDynamicArray.insert(int index, Item item)
+    //resize if needed
+    if(this.capacity() == 0){
+      this.resize(1);
+    }
+    else if(this.size == this.capacity()) {
+      this.resize(this.capacity() * 2);
+    }
+
+    this.size++;
+    for (int i = this.size - 2; i >= this.index(index); i--)
+    {
+      this.set(this.index(i+1), this.get(this.index(i)));
+    }
+    this.set(this.index(index), item);
+
   }
 
 
@@ -228,8 +248,21 @@ public class CircularDynamicArray<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement CircularDynamicArray.remove(int index)
-    return null;
+    Item itemToReturn = this.get(this.index(index));
+
+    for (int i = index; i < this.index(this.size - 1); i++)
+    {
+      this.set(this.index(i), this.get(this.index(i + 1)));
+    }
+
+    this.size--;
+
+    //resize if needed
+    if(this.size * 4 <= this.capacity()) {
+      this.resize(this.capacity() / 2);
+    }
+
+    return itemToReturn;
   }
 
 }

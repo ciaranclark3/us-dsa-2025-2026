@@ -63,7 +63,7 @@ public class LinkedStack<Item>
   @Override
   public void push(Item item)
   {
-    // TODO: Implement LinkedStack.push(Item item)
+    this.items.insertFirst(item);
   }
 
 
@@ -71,8 +71,7 @@ public class LinkedStack<Item>
   public Item pop()
     throws NoSuchElementException
   {
-    // TODO: Implement LinkedStack.pop()
-    return null;
+    return this.items.removeFirst();
   }
 
 
@@ -80,8 +79,7 @@ public class LinkedStack<Item>
   public Item top()
     throws NoSuchElementException
   {
-    // TODO: Implement LinkedStack.top()
-    return null;
+    return this.items.get(0);
   }
 
 

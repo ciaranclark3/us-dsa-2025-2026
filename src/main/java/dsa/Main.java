@@ -2,6 +2,9 @@ package dsa;
 
 import dsa.lab01.exercises.Array;
 import dsa.lab01.exercises.StringArray;
+import dsa.lab02.exercises.SinglyLinkedList;
+import dsa.lab03.exercises.DynamicArray;
+
 
 public class Main
 {
@@ -37,13 +40,20 @@ public class Main
      | to get a representation of the state of the data structure's fields.   |
      *------------------------------------------------------------------------*/
 
-    Array<StringArray> array = new Array<>(
-      new StringArray("a", "b", "c"),
-      new StringArray());
+    DynamicArray<Integer> A = new DynamicArray<>(1,10,100,1000);
+    //A.insert(1, 4);
+    A.remove(3);
+    //System.out.println(A.toDebugString());
 
-    System.out.println(array);
-    System.out.println();
-    System.out.println(array.toDebugString());
+    for (int i = 0; i < A.size(); i++)
+    {
+      System.out.println(A.get(i));
+    }
+
+
+
+
+
   }
 
 }

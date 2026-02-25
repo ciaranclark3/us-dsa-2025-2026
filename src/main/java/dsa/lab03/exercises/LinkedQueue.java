@@ -63,7 +63,7 @@ public class LinkedQueue<Item>
   @Override
   public void enqueue(Item item)
   {
-    // TODO: Implement LinkedQueue.enqueue(Item item)
+    this.items.insertLast(item);
   }
 
 
@@ -71,8 +71,7 @@ public class LinkedQueue<Item>
   public Item dequeue()
     throws NoSuchElementException
   {
-    // TODO: Implement LinkedQueue.dequeue()
-    return null;
+    return this.items.removeFirst();
   }
 
 
@@ -80,8 +79,8 @@ public class LinkedQueue<Item>
   public Item front()
     throws NoSuchElementException
   {
-    // TODO: Implement LinkedQueue.front()
-    return null;
+
+    return this.items.first();
   }
 
 

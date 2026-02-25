@@ -116,7 +116,6 @@ public class SinglyLinkedList<Item>
 
   //</editor-fold>
 
-
   @Override
   public int size()
   {
@@ -144,8 +143,15 @@ public class SinglyLinkedList<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement SinglyLinkedList.node(int index)
-    return null;
+    Node<Item> nodeToReturn;
+    Node<Item> currentNode = this.first;
+    for (int i = 0; i < index; i++)
+    {
+      currentNode = currentNode.next;
+    }
+    nodeToReturn = currentNode;
+
+    return nodeToReturn;
   }
 
 
@@ -158,9 +164,30 @@ public class SinglyLinkedList<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement SinglyLinkedList.insert(int index, Item item)
-  }
+    boolean isLastLocal;
+    Node<Item> nodeToAdd = new Node<Item>(this, item);
 
+    if(index == this.size){
+      this.last = nodeToAdd;
+      isLastLocal = true;
+    }
+    else{
+      isLastLocal = false;
+    }
+
+    if(!isLastLocal){
+      nodeToAdd.next = this.node(index);
+    }
+    if(index != 0){
+      this.node(index - 1).next = nodeToAdd;
+    }
+
+    if(index == 0){
+      this.first = nodeToAdd;
+    }
+
+    this.size++;
+  }
 
   @Override
   public Item remove(int index)
@@ -171,8 +198,27 @@ public class SinglyLinkedList<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement SinglyLinkedList.remove(int index)
-    return null;
+    Item itemToReturn;
+    if(index == 0){ //first
+      itemToReturn = this.first.item;
+      this.first = this.first.next;
+    }
+    else if (index == this.size - 1){ //last
+      itemToReturn = this.last.item;
+
+      Node<Item> newLastNode = this.node(index - 1);
+      newLastNode.next = null;
+      this.last = newLastNode;
+    }
+    else { //not last or first
+      itemToReturn = this.node(index).item;
+
+      Node<Item> nodeBefore = this.node(index - 1);
+      nodeBefore.next = nodeBefore.next.next;
+    }
+
+    this.size--;
+    return itemToReturn;
   }
 
 
@@ -324,14 +370,38 @@ public class SinglyLinkedList<Item>
     @Override
     public void insertPrevious(Item item)
     {
-      // TODO: Implement SinglyLinkedList.Node.insertPrevious(Item item)
+
+      Node<Item> nodeBefore = this.previous();
+      Node<Item> nodeToAdd = new Node<Item>(this.list, item, this);
+
+      if (this.list.first == this) {
+        this.list.first = nodeToAdd;
+      }
+
+      if(nodeBefore != null){
+        //make previous node point to the new node
+        nodeBefore.next = nodeToAdd;
+      }
+
+      this.list.size = this.list.size() + 1;
     }
 
 
     @Override
     public void insertNext(Item item)
     {
-      // TODO: Implement SinglyLinkedList.Node.insertNext(Item item)
+      this.list.size = this.list.size() + 1;
+
+      Node<Item> nodeAfter = this.next();
+      //"this" is the current node
+      Node<Item> nodeToAdd = new Node<Item>(this.list, item, nodeAfter);
+
+      if (this.list.last == this) {
+        this.list.last = nodeToAdd;
+      }
+      this.next = nodeToAdd;
+
+
     }
 
 
@@ -400,8 +470,22 @@ public class SinglyLinkedList<Item>
         throw new NoSuchElementException();
       }
 
-      // TODO: Implement SinglyLinkedList.Node.removeNext()
-      return null;
+      Item itemToReturn = this.next.item;
+
+      //if the removed item is last, make this node last
+      if(this.next.isLast()){
+        this.list.last = this;
+
+        this.next = null;
+      }
+      else{ //else the last item remains the same and make this point to the
+        // next item in the list after the removed item.
+        this.next = this.next.next;
+
+      }
+
+      this.list.size--;
+      return itemToReturn;
     }
 
   }

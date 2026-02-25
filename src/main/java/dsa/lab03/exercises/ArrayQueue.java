@@ -78,7 +78,7 @@ public class ArrayQueue<Item>
   @Override
   public void enqueue(Item item)
   {
-    // TODO: Implement ArrayQueue.enqueue(Item item)
+    this.items.insertLast(item);
   }
 
 
@@ -86,8 +86,8 @@ public class ArrayQueue<Item>
   public Item dequeue()
     throws NoSuchElementException
   {
-    // TODO: Implement ArrayQueue.dequeue()
-    return null;
+
+    return this.items.removeFirst();
   }
 
 
@@ -95,8 +95,8 @@ public class ArrayQueue<Item>
   public Item front()
     throws NoSuchElementException
   {
-    // TODO: Implement ArrayQueue.front()
-    return null;
+
+    return this.items.first();
   }
 
 

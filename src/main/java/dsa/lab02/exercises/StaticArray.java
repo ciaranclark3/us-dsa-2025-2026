@@ -134,7 +134,26 @@ public class StaticArray<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement StaticArray.insert(int index, Item item)
+    Item[] itemsOld = this.items;
+    Item[] items2 = (Item[]) new Object[this.size() + 1];
+
+    // they are they same array up to index
+    for (int i = 0; i < index; i++)
+    {
+      items2[i] = itemsOld[i];
+    }
+
+
+    items2[index] = item;
+
+    //they are out of sync after index
+    for (int i = index; i < items2.length - 1; i++)
+    {
+      items2[i+1] = itemsOld[i];
+    }
+
+    this.items = items2;
+
   }
 
 
@@ -148,8 +167,24 @@ public class StaticArray<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement StaticArray.remove(int index)
-    return null;
+    Item itemToReturn = this.get(index);
+
+    Item[] items2 = (Item[]) new Object[this.size() - 1];
+
+    for (int i = 0; i < index ; i++)
+    {
+      items2[i] = this.get(i);
+    }
+
+    for (int i = index + 1; i < this.size() ; i++)
+    {
+      items2[i-1] = this.get(i);
+    }
+
+    this.items = items2;
+
+
+    return itemToReturn;
   }
 
 }

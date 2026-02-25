@@ -17,9 +17,26 @@ public class InsertionSorter
     StaticSequence<Item> items,
     Comparator<Item> comparator)
   {
-    // TODO: Implement InsertionSorter.sort(
-    //                   StaticSequence<Item> items,
-    //                   Comparator<Item> comparator)
+    for (int i = 1; i < items.size(); i++)
+    {
+      Item itemToInsert = items.get(i);
+      boolean foundThePlace = false;
+      int j = 0;
+      while(!foundThePlace){
+        if(0 > comparator.compare(itemToInsert, items.get(i-1-j))){
+          items.swap((i-1-j),(i-j));
+        }
+        else { //greater than 0 therefore
+          foundThePlace = true;
+        }
+
+        if((i-1-j) == 0){
+          foundThePlace = true;
+        }
+
+        j++;
+      }
+    }
   }
 
 }

@@ -184,10 +184,38 @@ public class DynamicArray<Item>
     {
       throw new IndexOutOfBoundsException();
     }
+    DynamicArray<Item> oldDynamicArray = new DynamicArray<Item>();
+    oldDynamicArray.resize(this.capacity());
+    oldDynamicArray.size = this.size;
+    for (int i = 0; i < this.size; i++)
+    {
+      oldDynamicArray.set(i,this.get(i));
+    }
 
-    // TODO: Implement DynamicArray.insert(int index, Item item)
+    if(this.capacity() == 0){
+      this.resize(1);
+    }
+
+    if(this.size >= this.capacity()){
+      //double the size
+      this.resize(this.capacity() * 2);
+    }
+
+    this.size++;
+
+    for (int i = 0; i < index; i++)
+    {
+      this.set(i, oldDynamicArray.get(i));
+    }
+
+    this.set(index, item);
+
+    for (int i = index; i < this.size - 1; i++)
+    {
+      this.set(i + 1, oldDynamicArray.get(i));
+    }
+
   }
-
 
   @Override
   public Item remove(int index)
@@ -198,8 +226,20 @@ public class DynamicArray<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement DynamicArray.remove(index)
-    return null;
+    Item itemToReturn = this.get(index);
+    //move them all back
+    for (int i = index; i < this.size - 1; i++)
+    {
+      this.set(i, this.get(i+1));
+    }
+
+    this.size--;
+
+    if(this.size * 4 < this.capacity()){
+      this.resize(this.capacity() / 2);
+    }
+
+    return itemToReturn;
   }
 
 }

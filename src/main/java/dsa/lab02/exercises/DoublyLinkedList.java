@@ -92,8 +92,16 @@ public class DoublyLinkedList<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement DoublyLinkedList.node(int index);
-    return null;
+    Node<Item> nodeToReturn;
+    Node<Item> currentNode = this.first;
+
+    for (int i = 0; i < index; i++)
+    {
+      currentNode = currentNode.next;
+    }
+    nodeToReturn = currentNode;
+
+    return nodeToReturn;
   }
 
 
@@ -106,7 +114,22 @@ public class DoublyLinkedList<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement DoublyLinkedList.insert(int index, Item item);
+    if(index == 0 && this.size == 0){
+      Node<Item> newNode = new Node<Item>(this, item);
+      this.first = newNode;
+      this.last = newNode;
+      this.size++;
+      return;
+    }
+
+
+    if(index == this.size){
+      this.last.insertNext(item);
+    }
+    else {
+      this.node(index).insertPrevious(item);
+    }
+
   }
 
 
@@ -119,8 +142,7 @@ public class DoublyLinkedList<Item>
       throw new IndexOutOfBoundsException();
     }
 
-    // TODO: Implement DoublyLinkedList.remove(int index);
-    return null;
+    return this.node(index).remove();
   }
 
 
@@ -249,22 +271,66 @@ public class DoublyLinkedList<Item>
     @Override
     public void insertPrevious(Item item)
     {
-      // TODO: Implement DoublyLinkedList.Node.insertPrevious(Item item);
+      Node<Item> nodeBefore = this.previous();
+      Node<Item> nodeToAdd = new Node<Item>(this.list, item ,this);
+      this.previous = nodeToAdd;
+
+      if (this.list.first == this) {
+        this.list.first = nodeToAdd;
+      }
+
+      if(nodeBefore != null){
+        nodeBefore.next = nodeToAdd;
+        nodeToAdd.previous = nodeBefore;
+      }
+
+      this.list.size++;
     }
 
 
     @Override
     public void insertNext(Item item)
     {
-      // TODO: Implement DoublyLinkedList.Node.insertNext(Item item);
+      Node<Item> nodeAfter = this.next;
+      Node<Item> nodeToAdd = new Node<Item>(this.list,this, item);
+      this.next = nodeToAdd;
+
+      if (this.list.last == this) {
+        this.list.last = nodeToAdd;
+      }
+
+      if(nodeAfter != null){
+        nodeAfter.previous = nodeToAdd;
+        nodeToAdd.next = nodeAfter;
+      }
+
+      this.list.size++;
     }
 
 
     @Override
     public Item remove()
     {
-      // TODO: Implement DoublyLinkedList.Node.remove();
-      return null;
+      //remove and return the item
+
+      Item itemToReturn = this.item;
+
+      Node<Item> previousNode = this.previous;
+      Node<Item> nextNode = this.next;
+
+      if(previousNode != null) previousNode.next = nextNode;
+      if(nextNode != null) nextNode.previous = previousNode;
+
+      if(this.list.first == this){
+        this.list.first = nextNode;
+      }
+      if(this.list.last == this){
+        this.list.last = previousNode;
+      }
+
+      this.list.size--;
+
+      return itemToReturn;
     }
 
 

@@ -17,9 +17,25 @@ public class SelectionSorter
     StaticSequence<Item> items,
     Comparator<Item> comparator)
   {
-    // TODO: Implement SelectionSorter.sort(
-    //                   StaticSequence<Item> items,
-    //                   Comparator<Item> comparator)
+
+    if(items.size() <= 1){
+      return;
+    }
+
+    for (int i = 0; i < items.size(); i++) {
+
+      Item smallestSoFar = items.get(i);
+      int indexOfSmallestSoFar = i;
+
+      for (int j = i; j < items.size(); j++) {
+        if(0 < comparator.compare(smallestSoFar, items.get(j))){
+          smallestSoFar = items.get(j);
+          indexOfSmallestSoFar = j;
+        }
+      }
+
+      items.swap(i, indexOfSmallestSoFar);
+    }
   }
 
 }

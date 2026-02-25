@@ -79,7 +79,7 @@ public class ArrayStack<Item>
   @Override
   public void push(Item item)
   {
-    // TODO: Implement ArrayStack.push(Item item)
+    this.items.insertLast(item);
   }
 
 
@@ -87,8 +87,7 @@ public class ArrayStack<Item>
   public Item pop()
     throws NoSuchElementException
   {
-    // TODO: Implement ArrayStack.pop()
-    return null;
+    return this.items.removeLast();
   }
 
 
@@ -96,8 +95,7 @@ public class ArrayStack<Item>
   public Item top()
     throws NoSuchElementException
   {
-    // TODO: Implement ArrayStack.top()
-    return null;
+    return this.items.get(this.size()-1);
   }
 
 

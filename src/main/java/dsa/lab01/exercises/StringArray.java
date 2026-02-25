@@ -51,8 +51,8 @@ public class StringArray
   @Override
   public int size()
   {
-    // TODO: Implement StringArray.size()
-    return 0;
+    // TODO: Implement StringArray.size() DONE
+    return this.strings.length;
   }
 
 
