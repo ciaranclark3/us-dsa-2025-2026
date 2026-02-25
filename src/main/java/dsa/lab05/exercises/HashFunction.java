@@ -80,8 +80,10 @@ public class HashFunction
   public int hash(Object object)
   {
     int initialHash = Objects.hashCode(object);
-    // TODO: Implement HashFunction.hash(Object object)
-    return 0;
+
+    return (int)(Math.floorMod((Math.floorMod(this.a * initialHash + this.b,
+      LARGE_PRIME)), this.size));
+
     // NOTE: `initialHash` is `k` in the lecture slides.
     // NOTE: Use `this.a`, `this.b`, `HashFunction.LARGE_PRIME` and `this.size`.
     // NOTE: Use `Math.floorMod(x, y)` instead of `x % y` to avoid issues

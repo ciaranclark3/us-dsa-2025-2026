@@ -103,6 +103,7 @@ public class ArrayMap<Key, Value>
     int i = 0;
     for(MapItem<Key, Value> item : this.items){
 
+
       if(item.key() == key){ return i; }
       i++;
     }

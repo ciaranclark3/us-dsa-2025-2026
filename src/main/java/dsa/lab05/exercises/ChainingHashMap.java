@@ -138,8 +138,11 @@ public class ChainingHashMap<Key, Value>
   public MapItem<Key, Value> find(Key key)
     throws NoSuchElementException
   {
-    // TODO: Implement ChainingHashMap.find(Key key)
-    return null;
+    if(this.chains[this.hashFunction.hash(key)].isEmpty()){
+      throw new NoSuchElementException();
+    }
+
+    return this.chains[this.hashFunction.hash(key)].find(key);
   }
 
 
