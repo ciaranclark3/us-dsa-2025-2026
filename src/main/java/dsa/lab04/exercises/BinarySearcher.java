@@ -76,13 +76,21 @@ public class BinarySearcher
     int start,
     int stop)
   {
-    // TODO: Implement BinarySearcher.search(
-    //                   StaticSequence<Item> items,
-    //                   Comparator<Item> comparator,
-    //                   Item item,
-    //                   int start,
-    //                   int stop)
-    return 0;
+
+    if(start >= stop) {
+      return -1;
+    }
+    int midpoint = (start + stop) / 2;
+
+    if(comparator.compare(items.get(midpoint), item) > 0){
+      return this.search(items,comparator, item, start, midpoint);
+    }
+
+    if(comparator.compare(items.get(midpoint), item) < 0){
+      return this.search(items,comparator, item, midpoint+1, stop);
+    }
+
+    return midpoint;
   }
 
 }

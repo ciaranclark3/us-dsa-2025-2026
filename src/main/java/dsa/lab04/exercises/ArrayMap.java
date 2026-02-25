@@ -99,8 +99,15 @@ public class ArrayMap<Key, Value>
    */
   private int indexOf(Key key)
   {
-    // TODO: Implement ArrayMap.indexOf(Key key)
-    return 0;
+
+    int i = 0;
+    for(MapItem<Key, Value> item : this.items){
+
+      if(item.key() == key){ return i; }
+      i++;
+    }
+
+    return -1;
   }
 
 

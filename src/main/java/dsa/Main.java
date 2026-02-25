@@ -4,6 +4,7 @@ import dsa.lab01.exercises.Array;
 import dsa.lab01.exercises.StringArray;
 import dsa.lab02.exercises.SinglyLinkedList;
 import dsa.lab03.exercises.DynamicArray;
+import dsa.lab04.exercises.ArrayMap;
 
 
 public class Main
@@ -40,15 +41,12 @@ public class Main
      | to get a representation of the state of the data structure's fields.   |
      *------------------------------------------------------------------------*/
 
-    DynamicArray<Integer> A = new DynamicArray<>(1,10,100,1000);
-    //A.insert(1, 4);
-    A.remove(3);
-    //System.out.println(A.toDebugString());
 
-    for (int i = 0; i < A.size(); i++)
-    {
-      System.out.println(A.get(i));
-    }
+    ArrayMap<Integer, String> myArrayMap = new ArrayMap<>();
+    myArrayMap.insert(1, "A");
+    myArrayMap.insert(2, "B");
+    myArrayMap.insert(3, "C");
+    System.out.println(myArrayMap);
 
 
 
